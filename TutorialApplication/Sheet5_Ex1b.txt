@@ -1,0 +1,20 @@
+GetMarkerSize
+root [7] hPrimaryEnergy->GetMaximumBin()
+(const Int_t)48
+root [8] hPrimaryEnergy->GetBinContent(48)
+(const Double_t)1.00556635311505271e+00
+root [9] E = hPrimaryEnergy->GetBinContent(48)
+Warning: Automatic variable E is allocated (tmpfile):1:
+(const Double_t)1.00556635311505271e+00
+root [10] hPrimaryEnergy->GetBinContent(53)
+(const Double_t)1.00355988041971100e+00
+root [11] Ep = hPrimaryEnergy->GetBinContent(53)
+Warning: Automatic variable Ep is allocated (tmpfile):1:
+(const Double_t)1.00355988041971100e+00
+root [12] E - Ep
+(double)2.00647269534171002e-03
+root [13] (E - Ep)/0.2
+(double)1.00323634767085501e-02
+root [14] (E - Ep)/0.2/8.96
+(double)1.11968342373979348e-03
+root [15] 
