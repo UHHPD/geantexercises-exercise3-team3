@@ -142,7 +142,7 @@ unsigned char getSignal(const std::string& n)
   //add noise
   c += gRandom->Gaus(0,3);
   //noise cut
-  int noisecut = 15;
+  int noisecut = 0;
   if( c < noisecut ) return 0;
   if(c > 255) return 255;
   return c;
@@ -253,29 +253,18 @@ int reconstructHitsWeighted(TObjArray* clusters)
   for(int i = 0 ; i < clusters->GetEntriesFast() ; ++i) {
     Cluster* c = (Cluster*)clusters->At(i);
     //compute weithed mean
-    double totalSig = 0;
-    double weightedZSum = 0;
-    double weightedErrorSum = 0;
     for(int j = 0 ; j < c->nStrips() ; ++j) {
       int sig = c->signal(j);
-      double z = c->ZofFirstStrip();
-      totalSig += sig;
-      weightedZSum += sig * z;
-      weightedErrorSum += sig * sig;
     }
-
-    double weightedZ = weightedZSum / totalSig;
-    double weightedError = 1/sqrt(12) * c->pitch() * sqrt(weightedErrorSum)/totalSig;
-
-    c->SetZ(weightedZ);
-    c->setErrZ(weightedError);
+    c->SetZ(0);
+    c->setErrZ(0);
   }
   return clusters->GetEntriesFast();
 }
 
 int reconstructHits(TObjArray* clusters) {
-  //return reconstructHitsBinary(clusters);
-  return reconstructHitsWeighted(clusters);
+  return reconstructHitsBinary(clusters);
+  //return reconstructHitsWeighted(clusters);
 }
   
 
@@ -408,7 +397,7 @@ void tracking2()
   bool doFit = false;
 
   // define particle and control parameters of loop   
-  unsigned int nevt = 400;
+  unsigned int nevt = 1;
   double p = 1.0;
   app->SetPrimaryPDG(-13);    // +/-11: PDG code of e+/- 
   /* other PDG codes     22: Photon    +-13: muon   
